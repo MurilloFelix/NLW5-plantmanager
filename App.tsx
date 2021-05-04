@@ -1,6 +1,8 @@
 import React from 'react';
-import { UserIdentification } from './src/pages/UserIdentification';
 import AppLoading from 'expo-app-loading'
+
+import Routes from './src/routes'
+
 import {
   useFonts,
   Jost_400Regular,
@@ -17,7 +19,7 @@ export default function App() {
     return  <AppLoading/>
 
   return (
-    <UserIdentification/>
+    <Routes />
   );
 }
 
