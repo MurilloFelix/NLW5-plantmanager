@@ -10,6 +10,7 @@ import api from '../services/api'
 
 import colors from '../style/colors'
 import fonts from '../style/fonts'
+import { useNavigation } from '@react-navigation/core'
 
 interface EnvironmentsProps {
     key: string;
@@ -38,7 +39,8 @@ export function PlantSelect() {
 
     const [page, setPage] = useState(1);
     const [loadingMore, setLoadingMore] = useState(true);
-    const [loadAll, setLoadAll] = useState(false);
+
+    const navigation = useNavigation();
 
     function handleEnvironmentSelected(environment: string) {
         setEnvironmentSelected(environment);
@@ -80,6 +82,9 @@ export function PlantSelect() {
         setLoadingMore(false);
     }
 
+    function handlePlantSelect(plant: PlantsProps){
+        navigation.navigate('PlantSave')
+    }
 
     useEffect(() => {
         async function fetchEnvironment() {
@@ -117,6 +122,7 @@ export function PlantSelect() {
             <View>
                 <FlatList
                     data={environments}
+                    keyExtractor={(item) => String(item.key)}
                     renderItem={({ item }) => (
                         <EnvironmentButton
                             title={item.title}
@@ -133,8 +139,12 @@ export function PlantSelect() {
             <View style={styles.plants}>
                 <FlatList
                     data={filteredPlants}
+                    keyExtractor={(item) => String(item.id)}
                     renderItem={({ item }) => (
-                        <PlantCardPrimary data={item}></PlantCardPrimary>
+                        <PlantCardPrimary 
+                            data={item}
+                            onPress = {()=>handlePlantSelect(item)}
+                        />
                     )}
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
@@ -146,7 +156,7 @@ export function PlantSelect() {
                     ListFooterComponent = {
                         loadingMore 
                         ? <ActivityIndicator color={colors.green} />
-                        : <></>
+                        : <></> 
                     }
                 />
             </View>
