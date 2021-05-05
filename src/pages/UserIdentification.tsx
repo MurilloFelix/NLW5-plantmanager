@@ -41,10 +41,6 @@ export function UserIdentification(){
     function handleSubmit(){
         if(isFilled){
             navigation.navigate('Confirmation')
-            
-        }else{
-            navigation.navigate('UserIdentification')
-
         }
     }
 
