@@ -11,24 +11,14 @@ import api from '../services/api'
 import colors from '../style/colors'
 import fonts from '../style/fonts'
 import { useNavigation } from '@react-navigation/core'
+import { PlantsProps } from '../libs/storage'
 
 interface EnvironmentsProps {
     key: string;
     title: string;
 }
 
-interface PlantsProps {
-    id: string;
-    name: string;
-    about: string;
-    water_tips: string;
-    photo: string;
-    environments: [string];
-    frequency: {
-        times: number;
-        repeat_every: string
-    }
-}
+
 
 export function PlantSelect() {
     const [environments, setEnvironments] = useState<EnvironmentsProps[]>();
@@ -83,7 +73,7 @@ export function PlantSelect() {
     }
 
     function handlePlantSelect(plant: PlantsProps){
-        navigation.navigate('PlantSave')
+        navigation.navigate('PlantSave', { plant })
     }
 
     useEffect(() => {
